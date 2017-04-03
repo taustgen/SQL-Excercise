@@ -62,12 +62,12 @@ select CompanyName
 from Customers
 where CustomerID NOT IN (select CustomerID from Orders);
 --Write a query to add a shipper named 'Amazon' to the Shippers table using SQL.
---Insert into Shippers (CompanyName)
---Values ('Amazon');
+Insert into Shippers (CompanyName)
+Values ('Amazon');
 --Write a query to change the company name from 'Amazon' to 'Amazon Prime Shipping' in the Shippers table using SQL.
 --update Shippers
---set CompanyName='Amazon Prime Shipping'
---where CompanyName = 'Amazon';
+set CompanyName='Amazon Prime Shipping'
+where CompanyName = 'Amazon';
 --Write a query to return a complete list of company names from the Shippers table. Include freight totals rounded to the nearest whole number for each shipper from the Orders table for those shippers with orders.
 select CompanyName, Round(AVG(Freight),0)
 from Shippers left join Orders on Shippers.ShipperID=Orders.ShipVia
