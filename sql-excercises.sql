@@ -65,8 +65,8 @@ where CustomerID NOT IN (select CustomerID from Orders);
 Insert into Shippers (CompanyName)
 Values ('Amazon');
 --Write a query to change the company name from 'Amazon' to 'Amazon Prime Shipping' in the Shippers table using SQL.
---update Shippers
-set CompanyName='Amazon Prime Shipping'
+update Shippers
+set CompanyName ='Amazon Prime Shipping'
 where CompanyName = 'Amazon';
 --Write a query to return a complete list of company names from the Shippers table. Include freight totals rounded to the nearest whole number for each shipper from the Orders table for those shippers with orders.
 select CompanyName, Round(AVG(Freight),0)
@@ -76,16 +76,16 @@ group by CompanyName
 select CONCAT(LastName, ', ', FirstName) as DisplayName
 from Employees;
 --Write a query to add yourself to the Customers table with an order for 'Grandma's Boysenberry Spread'.
-insert into Customers(ContactName)
-values ('Tyler Austgen');
+insert into Customers(CustomerID, CompanyName)
+values ('TYAUS','Tyler Austgen');
 insert into  Orders(CustomerID)
-values ((select CustomerID from Customers where CompanyName='Tyler Austgen'));
+values ('TYAUS');
 insert into [Order Details](OrderID,ProductID)
-values ((select OrderID from Orders join Customers on Customers.CustomerID=Orders.CustomerID where CompanyName ='Tyler Austgen'), (select ProductID from Products where ProductName='Grandma''s Boysenberry Spread'))
+values ((select OrderID from Orders where CustomerID ='TYAUS'), (select ProductID from Products where ProductName='Grandma''s Boysenberry Spread'))
 
 --Write a query to remove yourself and your order from the database.
-delete [Order Details] where OrderID=(select OrderID from Orders join Customers on Customers.CustomerID=Orders.CustomerID where CompanyName ='Tyler Austgen');
-delete Orders where CustomerID=(select CustomerID from Customers where CompanyName='Tyler Austgen');
+delete [Order Details] where OrderID=(select OrderID from Orders where CustomerID ='TYAUS');
+delete Orders where CustomerID='TYAUS';
 delete Customers where CompanyName='Tyler Austgen';
 --Write a query to return a list of products from the Products table along with the total units in stock for each product. Include only products with TotalUnits greater than 100.
 select ProductName, UnitsInStock from Products where UnitsInStock>100;
